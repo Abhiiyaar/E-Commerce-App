@@ -20,7 +20,7 @@ import {
   approvePayPalOrder,
   createPayPalOrder,
 } from "@/lib/actions/order-action";
-import { loadStripe } from "@stripe/stripe-js";
+import { Stripe, loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import StripeForm from "./stripe-form";
 import { STRIPE_PUBLIC_KEY } from "@/lib/constant";
@@ -48,7 +48,7 @@ export default function PaymentForm({
     isPaid,
   } = order;
   const { toast } = useToast();
-  const [stripePromise, setStripePromise] = useState<any>(null);
+  const [stripePromise, setStripePromise] = useState<Promise<Stripe | null> | null>(null);
 
   useEffect(() => {
     if (STRIPE_PUBLIC_KEY) {
