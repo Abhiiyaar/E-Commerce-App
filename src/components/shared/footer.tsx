@@ -15,11 +15,9 @@ export default function Footer() {
           <ChevronUp className='mr-2 h-4 w-4' />
           Back to top
         </Button>
-        
-       
       </div>
       <div className='p-4'>
-        <div className='flex justify-center  gap-3 text-sm'>
+        <div className='flex justify-center gap-3 text-sm'>
           <Link href='/page/conditions-of-use'>
             Conditions of Use
           </Link>
@@ -29,7 +27,7 @@ export default function Footer() {
         <div className='flex justify-center text-sm'>
           <p> © Copyright</p>
         </div>
-        <div className='mt-8 flex justify-center text-sm text-gray-400'>
+        <div className='mt-3 flex justify-center text-sm text-gray-400'>
           111, Address display, India
         </div>
       </div>

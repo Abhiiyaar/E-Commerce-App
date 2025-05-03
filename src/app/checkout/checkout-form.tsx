@@ -436,18 +436,14 @@ export default function CheckoutForm() {
                       value={paymentMethod}
                       onValueChange={(value) => setPaymentMethod(value)}
                     >
-                      {AVAILABLE_PAYMENT_METHODS.map((pm) => (
-                        <div key={pm.name} className='flex items-center py-1 '>
+                      {AVAILABLE_PAYMENT_METHODS.filter(method => method.name !== 'Stripe').map((method) => (
+                        <div key={method.name} className="flex items-center space-x-2">
                           <RadioGroupItem
-                            value={pm.name}
-                            id={`payment-${pm.name}`}
+                            value={method.name}
+                            id={method.name}
+                            checked={paymentMethod === method.name}
                           />
-                          <Label
-                            className='font-bold pl-2 cursor-pointer'
-                            htmlFor={`payment-${pm.name}`}
-                          >
-                            {pm.name}
-                          </Label>
+                          <Label htmlFor={method.name}>{method.name}</Label>
                         </div>
                       ))}
                     </RadioGroup>

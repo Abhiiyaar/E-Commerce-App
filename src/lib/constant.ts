@@ -14,11 +14,6 @@ export const AVAILABLE_PAYMENT_METHODS = [
     isDefault: true,
   },
   {
-    name: "Stripe",
-    commission: 0,
-    isDefault: true,
-  },
-  {
     name: "Cash On Delivery",
     commission: 0,
     isDefault: true,
@@ -58,7 +53,7 @@ export const SENDER_EMAIL =
 export const SENDER_NAME = process.env.RESEND_NAME || "Shopping";
 
 export const STRIPE_PUBLIC_KEY =
-  process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY ||
+  process.env.STRIPE_PUBLIC_KEY ||
   (process.env.NODE_ENV === "development" ? "pk_test_51N..." : "");
 export const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
 export const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET;

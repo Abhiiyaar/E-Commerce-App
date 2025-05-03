@@ -20,20 +20,14 @@ import {
   approvePayPalOrder,
   createPayPalOrder,
 } from "@/lib/actions/order-action";
-import { Stripe, loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-import StripeForm from "./stripe-form";
-import { STRIPE_PUBLIC_KEY } from "@/lib/constant";
 
 export default function PaymentForm({
   order,
   paypalClientId,
-  clientSecret,
 }: {
   order: IOrder;
   paypalClientId: string;
   isAdmin: boolean;
-  clientSecret: string | null;
 }) {
   const router = useRouter();
   const {
@@ -48,13 +42,6 @@ export default function PaymentForm({
     isPaid,
   } = order;
   const { toast } = useToast();
-  const [stripePromise, setStripePromise] = useState<Promise<Stripe | null> | null>(null);
-
-  useEffect(() => {
-    if (STRIPE_PUBLIC_KEY) {
-      setStripePromise(loadStripe(STRIPE_PUBLIC_KEY));
-    }
-  }, []);
 
   if (isPaid) {
     redirect(`/account/orders/${order._id}`);
@@ -144,18 +131,6 @@ export default function PaymentForm({
               </div>
             )}
 
-            {!isPaid &&
-              paymentMethod === "Stripe" &&
-              clientSecret &&
-              stripePromise && (
-                <Elements stripe={stripePromise} options={{ clientSecret }}>
-                  <StripeForm
-                    priceInCents={Math.round(order.totalPrice * 100)}
-                    orderId={order._id}
-                  />
-                </Elements>
-              )}
-
             {!isPaid && paymentMethod === "Cash On Delivery" && (
               <Button
                 className="w-full rounded-full"
@@ -169,11 +144,6 @@ export default function PaymentForm({
       </CardContent>
     </Card>
   );
-
-  if (!STRIPE_PUBLIC_KEY) {
-    console.error("Stripe public key is not defined");
-    return null;
-  }
 
   return (
     <main className="max-w-6xl mx-auto">
